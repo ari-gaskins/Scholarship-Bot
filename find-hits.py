@@ -6,11 +6,10 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 # sets the webdriver to be headless, operating in background
-# can't do this for this project, keeping for info later
 # NOTE: place options=options in driver when uncomment
 # options = Options()
 # options.headless = True
-# options.add_argument('--winddow-size=1920,1200')
+# options.add_argument('--window-size=1920,1200')
 
 # load in .env 
 load_dotenv()
@@ -29,24 +28,32 @@ driver = webdriver.Chrome(driver_path)
 driver.get(url)
 driver.maximize_window()
 
-# locates login, clicks login button
-login_element = driver.find_element_by_link_text('Login')
-login_element.click()
+def Login(em, pwd):
+    # locates login, clicks login button
+    login_element = driver.find_element_by_link_text('Login')
+    login_element.click()
 
-email_element = driver.find_element_by_id('Email')
-email_element.clear()
-# change to email from .env after debugging
-email_element.send_keys(email)
+    # enter email
+    email_element = driver.find_element_by_id('Email')
+    email_element.clear()
+    email_element.send_keys(em)
 
-password_element = driver.find_element_by_name('Password')
-password_element.clear()
-# change to password from .env after debugging
-password_element.send_keys(password)
+    # enter password
+    password_element = driver.find_element_by_name('Password')
+    password_element.clear()
+    password_element.send_keys(pwd)
+
+    # click continue
+    continue_button = driver.find_element_by_css_selector('.mdc-button')
+    continue_button.click()
+
+Login(email, password)
+
+soup = BeautifulSoup(driver.page_source, 'html.parser')
 
 # pause to see the result 
-time.sleep(5)
+# time.sleep(5)
 
-# soup = BeautifulSoup(driver.page_source, 'html.parser')
 
 
 
