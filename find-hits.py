@@ -50,6 +50,11 @@ def Login(em, pwd):
 Login(email, password)
 
 soup = BeautifulSoup(driver.page_source, 'html.parser')
+scholarships = soup.find_all('a', class_='scholarship-matches')
+
+# NOTE: may want to create a function that excludes ad scholarships, which are located under <span>
+# should click first scholarship then check for hits then send info if there is a hit, if not
+# click arrow to next scholarship and repeat 
 
 # pause to see the result 
 # time.sleep(5)
